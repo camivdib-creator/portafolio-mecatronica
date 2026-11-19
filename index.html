@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camila Nazareth Valerio Romero | Portafolio Mecatrónica & Tecnologías Creativas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            50: '#f0fdf4',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                            dark: '#0b0f19',
+                            card: '#111827'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts Inter -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        /* Custom 3D Tilt Card Effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tilt-card:hover {
+            box-shadow: 0 20px 30px -10px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Custom Light Mode Color Inversion Styles */
+        body.light-mode {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+        }
+
+        body.light-mode .glass-panel {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border-color: rgba(56, 189, 248, 0.4) !important;
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.15) !important;
+        }
+
+        body.light-mode header {
+            background: rgba(255, 255, 255, 0.92) !important;
+            border-bottom-color: rgba(56, 189, 248, 0.3) !important;
+        }
+
+        body.light-mode .text-white,
+        body.light-mode .text-gray-100,
+        body.light-mode .text-gray-200,
+        body.light-mode .text-gray-300,
+        body.light-mode .text-gray-400 {
+            color: #0f172a !important;
+        }
+
+        body.light-mode .text-emerald-300,
+        body.light-mode .text-emerald-400,
+        body.light-mode .text-teal-300,
+        body.light-mode .text-teal-400 {
+            color: #0284c7 !important; /* Azul Claro / Sky Blue */
+        }
+
+        body.light-mode .bg-gray-950,
+        body.light-mode .bg-gray-900,
+        body.light-mode .bg-gray-900\/60,
+        body.light-mode .bg-gray-900\/80 {
+            background-color: #ffffff !important;
+            border-color: rgba(56, 189, 248, 0.3) !important;
+        }
+
+        body.light-mode .bg-emerald-500\/10,
+        body.light-mode .bg-emerald-500\/20,
+        body.light-mode .bg-teal-500\/10,
+        body.light-mode .bg-teal-500\/20 {
+            background-color: rgba(56, 189, 248, 0.15) !important;
+            border-color: rgba(56, 189, 248, 0.4) !important;
+        }
+
+        body.light-mode .bg-emerald-600 {
+            background-color: #0284c7 !important;
+        }
+        body.light-mode .bg-emerald-600:hover {
+            background-color: #0369a1 !important;
+        }
+
+        body.light-mode .from-emerald-400.to-teal-300 {
+            background-image: linear-gradient(to right, #0284c7, #06b6d4) !important;
+        }
+
+        body.light-mode .from-emerald-600.to-teal-500 {
+            background-image: linear-gradient(to right, #0284c7, #0284c7) !important;
+        }
+
+        body.light-mode .border-emerald-500\/20,
+        body.light-mode .border-emerald-500\/30,
+        body.light-mode .border-emerald-500\/40,
+        body.light-mode .border-teal-500\/20,
+        body.light-mode .border-teal-500\/30,
+        body.light-mode .border-teal-500\/40 {
+            border-color: rgba(56, 189, 248, 0.35) !important;
+        }
+
+        body.light-mode #uniModal .glass-panel,
+        body.light-mode #birthModal .glass-panel,
+        body.light-mode #evidenceModal .glass-panel {
+            background: rgba(255, 255, 255, 0.98) !important;
+            border-color: #38bdf8 !important;
+            color: #0f172a !important;
+        }
+
+        body.light-mode #themeToggleBtn {
+            background-color: rgba(56, 189, 248, 0.15) !important;
+            border-color: rgba(56, 189, 248, 0.4) !important;
+            color: #0284c7 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 transition-colors duration-300 min-h-screen selection:bg-emerald-500 selection:text-white">
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-emerald-500/20 px-6 py-4 flex items-center justify-between">
+        <a href="#" class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold">
+                C
+            </div>
+            <span class="font-bold text-white text-sm sm:text-base tracking-wide">Camila Valerio</span>
+        </a>
+        <div class="flex items-center space-x-2 sm:space-x-3">
+            <!-- Navigation Buttons Top Right -->
+            <a href="#proyecto-escolar" onclick="playSound()" class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-gray-900/80 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold hover:bg-emerald-500/20 hover:text-white transition-all flex items-center space-x-1.5">
+                <i class="fa-solid fa-microchip text-xs"></i>
+                <span>Mi Proyecto Escolar</span>
+            </a>
+            <a href="#mecatronica" onclick="playSound()" class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-500 hover:text-white transition-all shadow-md flex items-center space-x-1.5">
+                <i class="fa-solid fa-gear text-xs"></i>
+                <span>Mecatrónica</span>
+            </a>
+            <a href="#contacto" onclick="playSound()" class="hidden md:inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-emerald-600/30 hover:scale-105 transition-all">
+                <i class="fa-solid fa-paper-plane text-xs"></i>
+                <span>Postulación Beca</span>
+            </a>
+            
+            <!-- Botón de Alternar Tema (Luna / Sol) -->
+            <button id="themeToggleBtn" onclick="playSound(); toggleTheme();" class="px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 font-semibold text-xs sm:text-sm hover:bg-emerald-500/20 transition-all flex items-center space-x-2">
+                <i id="themeIcon" class="fa-solid fa-moon text-xs sm:text-sm"></i>
+                <span id="themeText">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 overflow-hidden">
+        <!-- Background Circuit Graphic Overlay Effect -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+        <div class="lg:w-1/2 space-y-6 z-10 text-center lg:text-left">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold tracking-wider uppercase">
+                <i class="fa-solid fa-microchip animate-pulse"></i>
+                <span>Innovación con Propósito</span>
+            </div>
+            
+            <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                Transformando la <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">curiosidad académica</span> en alto impacto.
+            </h2>
+            
+            <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                "Transformando la curiosidad académica en proyectos de alto impacto social antes de pisar el campus universitario." Capitana de Robótica, gimnasta rítmica y creadora tecnológica desde la Isla de Margarita.
+            </p>
+
+            <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
+                <!-- Birthdate Modal Trigger -->
+                <button onclick="playSound(); openBirthModal();" class="px-6 py-3 rounded-xl bg-gray-900 border border-emerald-500/40 text-emerald-400 font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-lg flex items-center space-x-2">
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <span>Fecha de Nacimiento</span>
+                </button>
+                <a href="#evidencias" onclick="playSound()" class="px-6 py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/30 flex items-center space-x-2">
+                    <i class="fa-solid fa-award"></i>
+                    <span>Ver Evidencias</span>
+                </a>
+            </div>
+
+            <!-- Social Media Buttons requested -->
+            <div class="flex justify-center lg:justify-start items-center space-x-4 pt-4">
+                <a href="https://instagram.com/camivv.27" target="_blank" onclick="playSound()" class="w-12 h-12 rounded-xl bg-pink-600/20 border border-pink-500/40 text-pink-400 flex items-center justify-center text-xl hover:bg-pink-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/584121958035" target="_blank" onclick="playSound()" class="w-12 h-12 rounded-xl bg-green-600/20 border border-green-500/40 text-green-400 flex items-center justify-center text-xl hover:bg-green-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg" title="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://tiktok.com/@camivv27" target="_blank" onclick="playSound()" class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-400 flex items-center justify-center text-xl hover:bg-purple-600 hover:text-white transition-all transform hover:-translate-y-1 shadow-lg" title="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Profile Hero Card with Vector Style Overlay -->
+        <div class="lg:w-1/2 flex justify-center z-10">
+            <div class="relative w-72 sm:w-96 h-96 sm:h-[420px] rounded-3xl glass-panel p-4 shadow-2xl tilt-card border border-emerald-500/30 flex flex-col items-center justify-center overflow-hidden group">
+                <!-- Decorative Cyber Lines -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
+                <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
+                
+                <div class="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-xl mb-6">
+                    <img src="https://placehold.co/400x400/0b0f19/10b981?text=Camila+Valerio" alt="Camila Nazareth Valerio Romero" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x400/111827/10b981?text=Camila+Valerio'">
+                </div>
+
+                <h3 class="text-2xl font-bold tracking-tight text-center">Camila Nazareth Valerio Romero</h3>
+                <p class="text-emerald-400 text-sm font-semibold mt-1">Candidata a Beca • 4to Año (14 Años)</p>
+                <div class="mt-4 flex gap-2">
+                    <span class="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 text-xs border border-emerald-500/30">Robótica Nacional</span>
+                    <span class="px-3 py-1 rounded-lg bg-teal-500/10 text-teal-300 text-xs border border-teal-500/30">Gimnasia Rítmica</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyecto-escolar" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Mi Proyecto Escolar</h2>
+            <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            <p class="text-gray-400 mt-4 text-base">Caso de estudio oficial: Innovación ambiental desde la Isla de Margarita para proteger nuestra biodiversidad.</p>
+        </div>
+
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl shadow-xl border border-emerald-500/30 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="space-y-6">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase">
+                    <i class="fa-solid fa-shield-cat"></i>
+                    <span>Caso de Estudio Estrella</span>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold">Voz Insular: Cotorra Margariteña (Eco-Guardianes)</h3>
+                <p class="text-gray-300 leading-relaxed">
+                    Nacido de una iniciativa de nuestro colegio en la Isla de Margarita, este proyecto aborda la protección de la cotorra margariteña. Mi rol fundamental se centró en el <strong class="text-emerald-400">diseño estético y volumétrico de la cotorra</strong>, así como en el <strong class="text-emerald-400">armado mecánico y la distribución de circuitos electrónicos</strong>, integrando forma y función con precisión artesanal e ingenieril.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div class="p-4 rounded-2xl bg-gray-900/60 border border-gray-800">
+                        <h4 class="font-bold text-emerald-400 text-sm">Hardware & Estética</h4>
+                        <p class="text-xs text-gray-400 mt-1">Modelado físico, estructura de soporte y cableado de sensores.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-gray-900/60 border border-gray-800">
+                        <h4 class="font-bold text-emerald-400 text-sm">Resiliencia Técnica</h4>
+                        <p class="text-xs text-gray-400 mt-1">Superación de fallas en Fase Nacional (Caracas) aplicando calma y análisis.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-900/80 p-6 rounded-2xl border border-emerald-500/30 space-y-4 shadow-inner">
+                <h4 class="font-bold text-lg text-emerald-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-code-branch"></i>
+                    <span>Bitácora de Resolución en Competencia</span>
+                </h4>
+                <p class="text-sm text-gray-300 italic">
+                    "Hubo un momento en la competencia en Caracas donde se dañó un cable de nuestro prototipo porque el pin se quedó dentro del Arduino Uno. Estaba muy nerviosa, pero logré controlarlo. Explicué a los jueces con calma lo sucedido y el día dos funcionó perfectamente tras repararlo con paciencia."
+                </p>
+                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center space-x-3">
+                    <i class="fa-solid fa-lightbulb text-emerald-400 text-xl"></i>
+                    <p class="text-xs text-emerald-300 font-medium">Lema personal ante la falla: <span class="italic font-bold">"Inhala, exhala y analicemos."</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mecatronica" class="py-20 px-6 max-w-7xl mx-auto border-t border-emerald-500/10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold tracking-wider uppercase mb-3">
+                <i class="fa-solid fa-robot"></i>
+                <span>Carrera del Futuro</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">¿Qué es la Ingeniería Mecatrónica?</h2>
+            <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            <p class="text-gray-300 mt-6 text-base sm:text-lg leading-relaxed">
+                La <strong class="text-emerald-400">Ingeniería Mecatrónica</strong> es una disciplina de vanguardia que combina de forma multidisciplinaria cuatro pilares fundamentales: <span class="text-emerald-400 font-semibold">Mecánica</span>, <span class="text-teal-400 font-semibold">Electrónica</span>, <span class="text-emerald-400 font-semibold">Programación / Informática</span> y <span class="text-teal-400 font-semibold">Sistemas de Control</span>.
+            </p>
+        </div>
+
+        <!-- Explicación de actividades e impacto -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="glass-panel p-6 rounded-2xl border border-emerald-500/20 space-y-3 hover:border-emerald-500 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-gears"></i>
+                </div>
+                <h3 class="font-bold text-lg text-white">Diseño y Automáticas</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Se diseñan y construyen sistemas inteligentes, robots, prótesis biomédicas y maquinaria automatizada capaces de actuar sin intervención humana directa.
+                </p>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border border-teal-500/20 space-y-3 hover:border-teal-500 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h3 class="font-bold text-lg text-white">Integración de Sensores</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Se conectan sensores, microcontroladores y actuadores para procesar señales físicas y dar respuestas en tiempo real ante el entorno.
+                </p>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border border-emerald-500/20 space-y-3 hover:border-emerald-500 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3 class="font-bold text-lg text-white">Inteligencia y Control</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Se programa el software y algoritmos de control que otorgan capacidad de aprendizaje, precisión micrométrica y resolución de problemas industriales o ambientales.
+                </p>
+            </div>
+        </div>
+
+        <!-- Universidades en Caracas 3D Cards -->
+        <div class="text-center mb-10">
+            <h3 class="text-2xl font-bold text-white">Universidades para Estudiar Mecatrónica e Ingeniería en Caracas</h3>
+            <p class="text-gray-400 text-sm mt-2">Haz clic en cada tarjeta 3D para desplegar los detalles de ubicación e historia de la universidad.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- 3D Card UCAB -->
+            <div onclick="playSound(); openUniModal('Universidad Católica Andrés Bello (UCAB)', 'Avenida Teherán, Montalbán, Municipio Libertador, Caracas, Venezuela', '73 años laborando (Fundada el 24 de Octubre de 1953)', 'En la UCAB (Caracas, Venezuela) puedes cursar la carrera oficial de Ingeniería Mecatrónica, contando con laboratorios de robótica, automatización y desarrollo de tecnología de clase mundial.', 'https://maps.google.com/?cid=4885048252898359048');" class="glass-panel p-8 rounded-3xl cursor-pointer tilt-card border border-emerald-500/30 hover:border-emerald-400 transition-all group relative overflow-hidden flex flex-col justify-between space-y-6">
+                <div class="absolute top-0 right-0 px-4 py-1.5 bg-emerald-500/20 border-b border-l border-emerald-500/40 rounded-bl-2xl text-[11px] font-bold text-emerald-400 uppercase tracking-wider">
+                    73 Años de Trayectoria
+                </div>
+                <div class="space-y-4 pt-2">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-extrabold text-white group-hover:text-emerald-400 transition-colors">UCAB</h4>
+                        <p class="text-xs text-emerald-400 font-semibold mt-1">Universidad Católica Andrés Bello • Caracas, Venezuela</p>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Formación oficial en <strong class="text-emerald-400">Ingeniería Mecatrónica</strong>. Ubicada en Montalbán, Caracas. 
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-800 flex items-center justify-between text-xs text-emerald-400 font-bold">
+                    <span>Presiona para ver ubicación y más detalles</span>
+                    <i class="fa-solid fa-circle-info group-hover:rotate-12 transition-transform text-lg"></i>
+                </div>
+            </div>
+
+            <!-- 3D Card Universidad Monteávila -->
+            <div onclick="playSound(); openUniModal('Universidad Monteávila (UMA)', 'Final Av. Buen Pastor, Boleíta Norte, Municipio Sucre, Caracas, Venezuela', '28 años laborando (Fundada el 2 de Octubre de 1998)', 'La Universidad Monteávila en Caracas, Venezuela, ofrece una sólida plataforma académica en ingeniería e innovación tecnológica con enfoque humano e integral.', 'https://maps.google.com/?cid=16312445438301819572');" class="glass-panel p-8 rounded-3xl cursor-pointer tilt-card border border-teal-500/30 hover:border-teal-400 transition-all group relative overflow-hidden flex flex-col justify-between space-y-6">
+                <div class="absolute top-0 right-0 px-4 py-1.5 bg-teal-500/20 border-b border-l border-teal-500/40 rounded-bl-2xl text-[11px] font-bold text-teal-400 uppercase tracking-wider">
+                    28 Años de Trayectoria
+                </div>
+                <div class="space-y-4 pt-2">
+                    <div class="w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-extrabold text-white group-hover:text-teal-400 transition-colors">Universidad Monteávila</h4>
+                        <p class="text-xs text-teal-400 font-semibold mt-1">UMA • Caracas, Venezuela</p>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Formación académica e ingeniería integral. Ubicada en Boleíta Norte, Caracas.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-800 flex items-center justify-between text-xs text-teal-400 font-bold">
+                    <span>Presiona para ver ubicación y más detalles</span>
+                    <i class="fa-solid fa-circle-info group-hover:rotate-12 transition-transform text-lg"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl shadow-xl border border-emerald-500/30 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-teal-500/10 text-teal-400 text-xs font-bold uppercase mb-4">
+                    <i class="fa-solid fa-person-arrow-up-from-line"></i>
+                    <span>Disciplina Deportiva</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">El Arte de la Disciplina</h2>
+                <p class="text-gray-300 mt-4 leading-relaxed text-base sm:text-lg">
+                    Entreno 4 horas diarias de gimnasia rítmica. La precisión física, el control del centro de gravedad, la simetría estética y la extrema resiliencia bajo presión mental y corporal son los principios exactos que aplico al diseñar la estructura física y la cinemática de un robot de alto rendimiento.
+                </p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-teal-500/40 text-teal-300 text-xs font-semibold">4 Horas Diarias de Alta Exigencia</span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-teal-500/40 text-teal-300 text-xs font-semibold">Control Motor & Precisión</span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-teal-500/40 text-teal-300 text-xs font-semibold">Enfoque y Postura</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="evidencias" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Expediente de Evidencias</h2>
+            <div class="w-20 h-1 bg-emerald-500 mx-auto mt-4 rounded-full"></div>
+            <p class="text-gray-400 mt-4 text-base">Panel interactivo tipo grilla: Haz clic en cualquier tarjeta para desplegar el certificado oficial en alta definición y su ficha técnica.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Evidence Card 1 -->
+            <div onclick="playSound(); openEvidenceModal('Fase Nacional Robótica Caracas', 'Reconocimiento oficial por participación destacada y superación de incidencias técnicas en la Fase Nacional de Robótica.', 'Robótica & Hardware', 'Certificado Oficial N-001', 'https://placehold.co/800x550/111827/10b981?text=Diploma+Robotica+Nacional');" class="glass-panel p-6 rounded-2xl cursor-pointer tilt-card border border-emerald-500/20 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Fase Nacional Robótica</h3>
+                <p class="text-xs text-emerald-400 font-semibold mt-1">Robótica & Hardware</p>
+                <p class="text-sm text-gray-400 mt-2">Participación sobresaliente con el prototipo Eco-Guardianes.</p>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-semibold">
+                    <span>Ver certificado HD</span>
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Evidence Card 2 -->
+            <div onclick="playSound(); openEvidenceModal('Gimnasia Rítmica - Alto Rendimiento', 'Certificación de 4 horas diarias de entrenamiento intensivo, control motor y disciplina física avanzada.', 'Deporte & Disciplina', 'Certificado G-104', 'https://placehold.co/800x550/111827/14b8a6?text=Diploma+Gimnasia+Ritmica');" class="glass-panel p-6 rounded-2xl cursor-pointer tilt-card border border-teal-500/20 hover:border-teal-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-medal"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-teal-400 transition-colors">Gimnasia Rítmica Competitiva</h3>
+                <p class="text-xs text-teal-400 font-semibold mt-1">Deporte & Disciplina</p>
+                <p class="text-sm text-gray-400 mt-2">Constancia, simetría y precisión aplicada a la ingeniería mecánica.</p>
+                <div class="mt-4 flex items-center text-xs text-teal-400 font-semibold">
+                    <span>Ver certificado HD</span>
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Evidence Card 3 -->
+            <div onclick="playSound(); openEvidenceModal('Diplomado Diseño Gráfico (STB & Sigo)', '50 horas de formación práctica en interfaces, vectorización y diseño visual aplicado a tecnología.', 'Diseño & UI', 'Certificado D-089', 'https://placehold.co/800x550/111827/10b981?text=Diploma+Diseno+Grafico');" class="glass-panel p-6 rounded-2xl cursor-pointer tilt-card border border-emerald-500/20 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Diseño Gráfico (STB / Sigo)</h3>
+                <p class="text-xs text-emerald-400 font-semibold mt-1">Diseño & UI</p>
+                <p class="text-sm text-gray-400 mt-2">50 horas de formación en estética y modelado visual.</p>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-semibold">
+                    <span>Ver certificado HD</span>
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Evidence Card 4 -->
+            <div onclick="playSound(); openEvidenceModal('Certificación Inglés CEVAMAR', 'Dominio avanzado del idioma inglés, comprensión auditiva y fluidez técnica internacional.', 'Idiomas', 'Certificado C-332', 'https://placehold.co/800x550/111827/14b8a6?text=Diploma+Ingles+CEVAMAR');" class="glass-panel p-6 rounded-2xl cursor-pointer tilt-card border border-teal-500/20 hover:border-teal-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-teal-400 transition-colors">Inglés Avanzado CEVAMAR</h3>
+                <p class="text-xs text-teal-400 font-semibold mt-1">Idiomas</p>
+                <p class="text-sm text-gray-400 mt-2">Capacidad de comunicación global y lectura técnica bilingüe.</p>
+                <div class="mt-4 flex items-center text-xs text-teal-400 font-semibold">
+                    <span>Ver certificado HD</span>
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Evidence Card 5 -->
+            <div onclick="playSound(); openEvidenceModal('Mención Honorífica ELA MUN', 'Reconocimiento destacado en debate y negociación internacional sobre Derechos del Niño y liderazgo.', 'Liderazgo', 'Certificado E-012', 'https://placehold.co/800x550/111827/10b981?text=Mencion+Honorifica+ELA+MUN');" class="glass-panel p-6 rounded-2xl cursor-pointer tilt-card border border-emerald-500/20 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Primera Mención ELA MUN</h3>
+                <p class="text-xs text-emerald-400 font-semibold mt-1">Liderazgo & Oratoria</p>
+                <p class="text-sm text-gray-400 mt-2">Liderazgo de equipos y resolución pacífica de conflictos.</p>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-semibold">
+                    <span>Ver certificado HD</span>
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+
+            <!-- Evidence Card 6 -->
+            <div onclick="playSound(); openEvidenceModal('Proyecto Insular Cotorra Margariteña', 'Liderazgo en creación ecológica y tecnológica para la preservación de la fauna insular.', 'Innovación Social', 'Certificado P-505', 'https://placehold.co/800x550/111827/14b8a6?text=Certificado+Proyecto+Cotorra');" class="glass-panel p-6 rounded-2xl cursor-pointer tilt-card border border-teal-500/20 hover:border-teal-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-feather"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-teal-400 transition-colors">Eco-Guardianes Insulares</h3>
+                <p class="text-xs text-teal-400 font-semibold mt-1">Innovación Social</p>
+                <p class="text-sm text-gray-400 mt-2">Proyecto escolar destacado en la Isla de Margarita.</p>
+                <div class="mt-4 flex items-center text-xs text-emerald-400 font-semibold">
+                    <span>Ver certificado HD</span>
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-20 px-6 max-w-4xl mx-auto">
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl shadow-2xl border border-emerald-500/30 text-center space-y-6">
+            <h2 class="text-3xl sm:text-4xl font-extrabold">¿Lista para el Futuro de la Mecatrónica?</h2>
+            <p class="text-gray-300 max-w-xl mx-auto">
+                Con 14 años de edad cursando 4to año, Camila Valerio combina el rigor técnico, la disciplina olímpica y el diseño creativo para transformar el mundo desde la Isla de Margarita.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <a href="https://wa.me/584121958035" target="_blank" onclick="playSound()" class="px-8 py-3.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 shadow-lg shadow-emerald-600/30 flex items-center space-x-2 transition-transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>Contactar vía WhatsApp</span>
+                </a>
+                <a href="mailto:camiv.dib@gmail.com?subject=Contacto%20Portafolio%20Beca%20-%20Camila%20Valerio" onclick="playSound()" class="px-8 py-3.5 rounded-xl bg-gray-900 border border-emerald-500/40 text-emerald-400 font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-lg flex items-center space-x-2">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Enviar Correo (Gmail / Mail)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-xs text-gray-500 border-t border-gray-900">
+        <p>© 2026 Camila Nazareth Valerio Romero • Portafolio Web Profesional • Mecatrónica & Tecnologías Creativas</p>
+    </footer>
+
+    <!-- University Details Modal -->
+    <div id="uniModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden px-4 py-6 overflow-y-auto">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-xl w-full border border-emerald-500 space-y-6 relative animate-in fade-in zoom-in duration-300 my-auto">
+            <button onclick="playSound(); closeUniModal();" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Universidad en Caracas, Venezuela</span>
+                    <h3 id="uniModalName" class="text-xl sm:text-2xl font-extrabold text-white">Nombre Universidad</h3>
+                </div>
+            </div>
+
+            <div class="bg-gray-900/80 p-5 rounded-2xl border border-gray-800 space-y-4">
+                <div>
+                    <h4 class="text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Años Laborando & Trayectoria</span>
+                    </h4>
+                    <p id="uniModalYears" class="text-sm text-white font-semibold mt-1">X años laborando</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Ubicación Exacta en Caracas</span>
+                    </h4>
+                    <p id="uniModalLocation" class="text-sm text-gray-300 mt-1">Dirección específica</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center space-x-2">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Oferta Académica & Mecatrónica</span>
+                    </h4>
+                    <p id="uniModalDesc" class="text-sm text-gray-300 leading-relaxed mt-1">Detalles de la carrera</p>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <a id="uniModalMapLink" href="#" target="_blank" onclick="playSound()" class="flex-1 py-3 rounded-xl bg-gray-900 border border-emerald-500/40 text-emerald-400 font-bold text-center text-sm hover:bg-emerald-500 hover:text-white transition-all flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Ver en Google Maps</span>
+                </a>
+                <button onclick="playSound(); closeUniModal();" class="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 shadow-lg text-sm">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Birthdate Modal -->
+    <div id="birthModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden px-4">
+        <div class="glass-panel p-8 rounded-3xl max-w-md w-full border border-emerald-500 text-center space-y-6 relative animate-in fade-in zoom-in duration-300">
+            <button onclick="playSound(); closeBirthModal();" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl mx-auto">
+                <i class="fa-solid fa-cake-candles"></i>
+            </div>
+            <div>
+                <h3 class="text-gray-400 text-sm font-semibold uppercase tracking-wider">Fecha de Nacimiento Oficial</h3>
+                <p class="text-4xl sm:text-5xl font-extrabold text-emerald-400 mt-2">25 de Diciembre</p>
+                <p class="text-2xl font-bold text-white mt-1">de 2011</p>
+            </div>
+            <p class="text-xs text-gray-400">Celebro la navidad combinada con mi pasión inquebrantable por la ingeniería y el desarrollo tecnológico.</p>
+            <button onclick="playSound(); closeBirthModal();" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 shadow-lg">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Evidence HD Modal -->
+    <div id="evidenceModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden px-4 py-6 overflow-y-auto">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-2xl w-full border border-emerald-500 space-y-6 relative animate-in fade-in zoom-in duration-300 my-auto">
+            <button onclick="playSound(); closeEvidenceModal();" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <div>
+                    <span id="modalCategory" class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Categoría</span>
+                    <h3 id="modalTitle" class="text-xl font-extrabold text-white">Título de la Evidencia</h3>
+                </div>
+            </div>
+
+            <!-- Espacio visual para cargar tus diplomas/certificados reales -->
+            <div class="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border-2 border-emerald-500/40 bg-gray-950 shadow-inner flex items-center justify-center group">
+                <img id="modalImage" src="https://placehold.co/800x550/111827/10b981?text=Espacio+para+Foto+del+Diploma" alt="Diploma Certificado" class="w-full h-full object-contain">
+                <div class="absolute bottom-2 right-2 bg-gray-950/80 px-3 py-1 rounded-lg border border-emerald-500/30 text-[10px] text-emerald-400 font-mono">
+                    HD Preview • Reemplazable en código
+                </div>
+            </div>
+
+            <div class="bg-gray-900/80 p-4 rounded-2xl border border-gray-800 space-y-2">
+                <p class="text-xs text-gray-400 font-semibold uppercase">Ficha Técnica & Descripción</p>
+                <p id="modalDesc" class="text-sm text-gray-300 leading-relaxed">Descripción detallada del reconocimiento o diploma obtenido.</p>
+                <p id="modalCode" class="text-xs text-emerald-400 font-mono font-bold mt-2">ID: REF-000</p>
+            </div>
+            <button onclick="playSound(); closeEvidenceModal();" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 shadow-lg">Cerrar Ficha</button>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality (Dark Default -> Light Mode Switch)
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const isLight = body.classList.toggle('light-mode');
+
+            if (isLight) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        // Web Audio API Sci-Fi Button Click Sound generator (ONLY on button clicks)
+        function playSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.08);
+                
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch (e) {
+                // AudioContext blocked or not supported
+            }
+        }
+
+        // University Details Modal Functions
+        function openUniModal(name, location, years, desc, mapUrl) {
+            document.getElementById('uniModalName').innerText = name;
+            document.getElementById('uniModalLocation').innerText = location;
+            document.getElementById('uniModalYears').innerText = years;
+            document.getElementById('uniModalDesc').innerText = desc;
+            document.getElementById('uniModalMapLink').href = mapUrl;
+            document.getElementById('uniModal').classList.remove('hidden');
+        }
+        function closeUniModal() {
+            document.getElementById('uniModal').classList.add('hidden');
+        }
+
+        // Birthdate Modal Functions
+        function openBirthModal() {
+            document.getElementById('birthModal').classList.remove('hidden');
+        }
+        function closeBirthModal() {
+            document.getElementById('birthModal').classList.add('hidden');
+        }
+
+        // Evidence HD Modal Functions (Incluye parámetro imgUrl para cargar cada foto)
+        function openEvidenceModal(title, desc, category, code, imgUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalCategory').innerText = category;
+            document.getElementById('modalCode').innerText = code;
+            if (imgUrl) {
+                document.getElementById('modalImage').src = imgUrl;
+            }
+            document.getElementById('evidenceModal').classList.remove('hidden');
+        }
+        function closeEvidenceModal() {
+            document.getElementById('evidenceModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
